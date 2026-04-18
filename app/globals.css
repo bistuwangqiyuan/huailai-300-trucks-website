@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color tokens */
+  --color-ink-950: #060912;
+  --color-ink-900: #0a0e1a;
+  --color-ink-800: #111827;
+  --color-ink-700: #1f2937;
+  --color-ink-600: #2a3445;
+
+  --color-steel-500: #64748b;
+  --color-steel-400: #94a3b8;
+  --color-steel-300: #cbd5e1;
+
+  --color-bone-50: #f8fafc;
+  --color-bone-100: #eef2f7;
+  --color-bone-200: #e2e8f0;
+
+  --color-h2-500: #22d3ee;
+  --color-h2-600: #0891b2;
+  --color-ev-500: #a3e635;
+  --color-ev-600: #65a30d;
+  --color-gold-500: #d4a24c;
+  --color-gold-400: #e5b76a;
+  --color-emerald-500: #10b981;
+  --color-emerald-400: #34d399;
+  --color-flame-500: #f97316;
+  --color-flame-400: #fb923c;
+
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+
+  /* Type scale */
+  --font-sans: var(--font-noto-sans-sc), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* Animation */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-ink-950);
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-bone-50);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-h2-500);
+    color: var(--color-ink-950);
+  }
+
+  /* Sane defaults */
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p { text-wrap: pretty; }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* High-density numeric display */
+  .num-mega {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum", "ss01";
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  /* Glass card */
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--color-line);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid var(--color-line-strong);
+  }
+
+  /* Dotted grid background */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: -1px -1px;
+  }
+
+  .bg-grid-fine {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Section eyebrow */
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-steel-400);
+  }
+
+  /* Subtle radial highlight */
+  .radial-highlight {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      rgba(34, 211, 238, 0.08),
+      transparent 50%
+    );
+  }
+
+  /* Marquee gradient mask */
+  .marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  /* Live ticker pulse dot */
+  .pulse-dot::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 0 currentColor;
+    animation: pulseDot 1.8s var(--ease-cinematic) infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+
+  @keyframes pulseDot {
+    0%   { box-shadow: 0 0 0 0 currentColor; }
+    70%  { box-shadow: 0 0 0 10px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+
+  /* Hairline divider */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-line-strong),
+      transparent
+    );
+  }
+
+  /* Scroll progress bar */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      var(--color-h2-500),
+      var(--color-emerald-500),
+      var(--color-gold-500)
+    );
+    transform-origin: 0 50%;
+    z-index: 100;
+  }
+}
+
+/* Recharts - Inherit dark theme */
+.recharts-text {
+  fill: var(--color-steel-400) !important;
+  font-size: 11px;
+}
+.recharts-cartesian-axis-line,
+.recharts-cartesian-axis-tick-line {
+  stroke: var(--color-line) !important;
+}
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: var(--color-line) !important;
+}
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+.recharts-default-tooltip {
+  background: var(--color-ink-800) !important;
+  border: 1px solid var(--color-line-strong) !important;
+  border-radius: 8px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  padding: 10px 12px !important;
+}
+.recharts-default-tooltip .recharts-tooltip-label {
+  color: var(--color-steel-300) !important;
+  font-weight: 500;
+  margin-bottom: 4px !important;
+}
+.recharts-tooltip-item {
+  color: var(--color-bone-50) !important;
+}
