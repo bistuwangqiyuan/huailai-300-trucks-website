@@ -4,9 +4,7 @@ import { Inter, Noto_Sans_SC, JetBrains_Mono } from 'next/font/google'
 
 import './globals.css'
 
-import { SiteHeader } from '@/components/layout/site-header'
-import { SiteFooter } from '@/components/layout/site-footer'
-import { ScrollProgress } from '@/components/layout/scroll-progress'
+import { Chrome } from '@/components/layout/chrome'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -104,12 +102,7 @@ export default function RootLayout({
         <Script id="ld-project" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify(jsonLd)}
         </Script>
-        <ScrollProgress />
-        <SiteHeader />
-        <main id="main" className="pt-16 lg:pt-[72px]">
-          {children}
-        </main>
-        <SiteFooter />
+        <Chrome>{children}</Chrome>
       </body>
     </html>
   )

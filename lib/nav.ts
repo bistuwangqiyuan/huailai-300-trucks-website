@@ -6,7 +6,8 @@ export type NavItem = {
 }
 
 export const NAV: readonly NavItem[] = [
-  { href: '/', label: '首页', short: 'Home', hint: '项目要览 + 关键 KPI' },
+  { href: '/', label: '项目大屏', short: 'Dashboard', hint: '指挥中心 / 综合可视化' },
+  { href: '/intro', label: '项目导览', short: 'Intro', hint: '项目要览 + 关键 KPI' },
   { href: '/overview', label: '项目概览', short: 'Overview', hint: '背景 / 目标 / 战略机遇' },
   { href: '/site', label: '厂址与资源', short: 'Site', hint: '区位 / 气候 / 1 GW 风光（独立资产）' },
   { href: '/policy', label: '市场与政策', short: 'Policy', hint: '四级政策 / 1.7 亿示范红利' },
@@ -17,4 +18,4 @@ export const NAV: readonly NavItem[] = [
   { href: '/roadmap', label: '实施路径', short: 'Roadmap', hint: '三阶段 / 8 标段' },
 ] as const
 
-export const DASHBOARD_HREF = '/dashboard'
+export const DASHBOARD_HREF = '/'

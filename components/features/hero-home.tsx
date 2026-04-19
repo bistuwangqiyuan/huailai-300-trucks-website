@@ -52,7 +52,7 @@ export function HeroHome() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/dashboard"
+              href="/"
               className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2.5 text-[14px] font-medium text-white transition hover:border-h2-500/50 hover:text-h2-500"
             >
               进入项目大屏
