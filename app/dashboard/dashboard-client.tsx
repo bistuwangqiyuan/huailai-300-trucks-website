@@ -25,6 +25,7 @@ export function DashboardClient() {
   const series = useMemo(() => generate24hSeries(11), [])
 
   useEffect(() => {
+    setT(Math.floor(Date.now() / 1000))
     const id = window.setInterval(() => setT(Math.floor(Date.now() / 1000)), 5000)
     return () => window.clearInterval(id)
   }, [])
@@ -72,7 +73,7 @@ export function DashboardClient() {
               伪实时节拍 5s
             </span>
             <span className="font-mono text-white/80">
-              {new Date(t * 1000).toLocaleString('zh-CN', { hour12: false })}
+              {t === 0 ? '— · —' : new Date(t * 1000).toLocaleString('zh-CN', { hour12: false })}
             </span>
             <button
               type="button"
@@ -126,12 +127,18 @@ export function DashboardClient() {
           {/* Left */}
           <div className="space-y-4 xl:col-span-3">
             <Panel title="三站加氢吞吐（kg/h）">
-              {live.stationFlowKgPerH.map((v, i) => (
-                <div key={i} className="flex items-center justify-between border-b border-white/5 py-2 last:border-0">
-                  <span className="text-[13px] text-white/55">加氢站-{String(i + 1).padStart(2, '0')}</span>
-                  <span className="font-mono text-sm text-h2-500">{v.toLocaleString('zh-CN')}</span>
-                </div>
-              ))}
+              {live.stationFlowKgPerH.map((v, i) => {
+                const id = `H2-${String(i + 1).padStart(2, '0')}`
+                return (
+                  <div
+                    key={id}
+                    className="flex items-center justify-between border-b border-white/5 py-2 last:border-0"
+                  >
+                    <span className="text-[13px] text-white/55">加氢站-{String(i + 1).padStart(2, '0')}</span>
+                    <span className="font-mono text-sm text-h2-500">{v.toLocaleString('zh-CN')}</span>
+                  </div>
+                )
+              })}
             </Panel>
             <Panel title="风险与价格哨兵">
               <div className="space-y-2 text-[13px] text-white/70">

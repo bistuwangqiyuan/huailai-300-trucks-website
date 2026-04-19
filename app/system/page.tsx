@@ -166,8 +166,8 @@ export default function SystemPage() {
 
       <Section eyebrow="FLOW" title="能流示意（文字）" source="§2.7.2 · §13.7">
         <ol className="list-decimal space-y-2 pl-5 text-[14px] text-white/70">
-          {ENERGY_FLOW.map((e, i) => (
-            <li key={i}>
+          {ENERGY_FLOW.map((e) => (
+            <li key={`${e.from}->${e.to}`}>
               {e.from} → {e.to}
             </li>
           ))}
